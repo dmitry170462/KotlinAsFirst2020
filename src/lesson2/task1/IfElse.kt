@@ -149,9 +149,27 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int {
-    if ((rookThreatens(kingX, kingY, rookX, rookY) == 1) && (bishopThreatens(kingX, kingY, bishopX, bishopY) == 0)) return 1
-    else if (((rookThreatens(kingX, kingY, rookX, rookY)) == 0) && (bishopThreatens(kingX, kingY, bishopX, bishopY) == 1)) return 2
-    else if (((rookThreatens(kingX, kingY, rookX, rookY)) == 1) && (bishopThreatens(kingX, kingY, bishopX, bishopY) == 1)) return 3
+    if ((rookThreatens(kingX, kingY, rookX, rookY) == 1) && (bishopThreatens(
+            kingX,
+            kingY,
+            bishopX,
+            bishopY
+        ) == 0)
+    ) return 1
+    else if (((rookThreatens(kingX, kingY, rookX, rookY)) == 0) && (bishopThreatens(
+            kingX,
+            kingY,
+            bishopX,
+            bishopY
+        ) == 1)
+    ) return 2
+    else if (((rookThreatens(kingX, kingY, rookX, rookY)) == 1) && (bishopThreatens(
+            kingX,
+            kingY,
+            bishopX,
+            bishopY
+        ) == 1)
+    ) return 3
     return 0
 }
 
@@ -163,7 +181,39 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val k: Double
+    val l: Double
+    val h: Double
+    if (((a + b) > c) && ((a + c) > b) && ((b + c) > a)) {
+        if (a > b) {
+            if (a > c) {
+                h = a
+                k = b
+                l = c
+            } else {
+                h = c
+                k = a
+                l = b
+            }
+        } else {
+            if (b > c) {
+                h = b
+                k = a
+                l = c
+            } else {
+                h = c
+                k = a
+                l = b
+            }
+        }
+    } else return -1
+    when {
+        (h * h) < (k * k + l * l) -> return 0
+        (h * h) == (k * k + l * l) -> return 1
+        else -> return 2
+    }
+}
 
 /**
  * Средняя (3 балла)
