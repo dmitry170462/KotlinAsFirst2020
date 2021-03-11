@@ -127,11 +127,33 @@ fun whichRookThreatens(
  * и 3, если угроза есть и от ладьи и от слона.
  * Считать, что ладья и слон не могут загораживать друг друга.
  */
+
+fun rookThreatens(
+    kX: Int, kY: Int,
+    rX: Int, rY: Int
+): Int {
+    return if ((kX == rX) || (kY == rY)) 1
+    else 0
+}
+
+fun bishopThreatens(
+    kX: Int, kY: Int,
+    bX: Int, bY: Int
+): Int {
+    return if (kotlin.math.abs(bX - kX) == kotlin.math.abs(bY - kY)) 1
+    else 0
+}
+
 fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    if ((rookThreatens(kingX, kingY, rookX, rookY) == 1) && (bishopThreatens(kingX, kingY, bishopX, bishopY) == 0)) return 1
+    else if (((rookThreatens(kingX, kingY, rookX, rookY)) == 0) && (bishopThreatens(kingX, kingY, bishopX, bishopY) == 1)) return 2
+    else if (((rookThreatens(kingX, kingY, rookX, rookY)) == 1) && (bishopThreatens(kingX, kingY, bishopX, bishopY) == 1)) return 3
+    return 0
+}
 
 /**
  * Простая (2 балла)
